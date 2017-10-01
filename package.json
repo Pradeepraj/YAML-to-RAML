@@ -13,15 +13,11 @@
   "author": "Pradeep Rajashekariah",
   "license": "ISC",
   "dependencies": {
-    "api-spec-converter": "^2.6.0",
-    "express": "^4.16.1",
     "js-yaml": "^3.10.0",
     "lodash": "^4.17.4",
     "merge-yaml-cli": "^1.1.1",
-    "node-dir": "^0.1.17",
     "oas-raml-converter": "^1.0.20",
     "path": "^0.12.7",
-    "swagger-to-raml-object": "0.0.6",
-    "swagger2-to-raml": "^0.2.0"
+    "serializer.ts": "0.0.12"
   }
 }
