@@ -1,0 +1,297 @@
+#%RAML 1.0
+title: Title in info
+description: Description in info
+version: 1.0.0
+(oas-info):
+  termsOfService: ''
+  contact:
+    email: postpradeepr@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+annotationTypes:
+  oas-info:
+    properties:
+      termsOfService?: string
+      contact?:
+        properties:
+          name?: string
+          url?: string
+          email?: string
+      license?:
+        properties:
+          name?: string
+          url?: string
+    allowedTargets: API
+  oas-tags-definition:
+    allowedTargets: API
+    type: array
+    items:
+      properties:
+        name: string
+        description?: string
+        externalDocs?:
+          properties:
+            url: string
+            description?: string
+  oas-collectionFormat:
+    type: string
+  oas-summary:
+    type: string
+    allowedTargets: Method
+  oas-tags:
+    type: 'string[]'
+    allowedTargets: Method
+(oas-tags-definition):
+  - name: Name in tags (Users)
+    description: Description in tags (Retrieves all users)
+protocols:
+  - HTTP
+  - HTTPS
+baseUri: 'http://localhost:8110/v1.0'
+types:
+  Users:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          type: User
+      pagination:
+        type: array
+        items:
+          type: PaginationDetails
+        required: false
+  PaginationDetails:
+    type: object
+    properties:
+      page:
+        type: integer
+        format: int64
+        required: false
+      pages:
+        type: integer
+        format: int64
+        required: false
+      rows:
+        type: integer
+        format: int64
+        required: false
+      total:
+        type: integer
+        format: int64
+        required: false
+  ErrorResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+        format: int32
+      message:
+        type: string
+      reason:
+        type: object
+        properties:
+          errorCode:
+            type: string
+            required: false
+          errorInfo:
+            type: string
+            required: false
+  User:
+    type: object
+    properties:
+      userId:
+        type: integer
+        format: int64
+      firstName:
+        type: string
+        required: false
+      lastName:
+        type: string
+        required: false
+      pagination:
+        type: array
+        items:
+          type: PaginationDetails
+        required: false
+/students:
+  /admins:
+    description: Description inside get method (retrieves all admins)(added using code)
+    get:
+      description: Description inside get method (retrieves all admins)
+      displayName: getAlladmins
+      responses:
+        '200':
+          description: successful operation
+          body:
+            application/json:
+              type: Users
+        '400':
+          description: Operation failed
+          body:
+            application/json:
+              type: ErrorResponse
+        '404':
+          description: API not found
+      queryParameters:
+        fields:
+          description: Filter fields
+          required: false
+          type: array
+          items:
+            type: string
+          (oas-collectionFormat): csv
+        sort:
+          description: Sorting details
+          required: false
+          type: array
+          items:
+            type: string
+          (oas-collectionFormat): multi
+        page:
+          description: Page number
+          minimum: 1
+          required: false
+          type: integer
+          format: int32
+        rows:
+          description: No of rows in a page
+          minimum: 1
+          required: false
+          type: integer
+          format: int64
+        format:
+          description: Response type
+          required: false
+          type: array
+          items:
+            type: string
+            enum:
+              - json
+              - csv
+              - tsv
+      (oas-summary): Summary inside get method (retrieves all admins)
+      (oas-tags):
+        - Tags inside get method
+  /users:
+    description: Description inside get method (retrieves all users)(added using code)
+    get:
+      description: Description inside get method (retrieves all users)
+      displayName: getAllUsers
+      responses:
+        '200':
+          description: successful operation
+          body:
+            application/json:
+              type: Users
+        '400':
+          description: Operation failed
+          body:
+            application/json:
+              type: ErrorResponse
+        '404':
+          description: API not found
+      queryParameters:
+        fields:
+          description: Filter fields
+          required: false
+          type: array
+          items:
+            type: string
+          (oas-collectionFormat): csv
+        sort:
+          description: Sorting details
+          required: false
+          type: array
+          items:
+            type: string
+          (oas-collectionFormat): multi
+        page:
+          description: Page number
+          minimum: 1
+          required: false
+          type: integer
+          format: int32
+        rows:
+          description: No of rows in a page
+          minimum: 1
+          required: false
+          type: integer
+          format: int64
+        format:
+          description: Response type
+          required: false
+          type: array
+          items:
+            type: string
+            enum:
+              - json
+              - csv
+              - tsv
+      (oas-summary): Summary inside get method (retrieves all users)
+      (oas-tags):
+        - Tags inside get method
+  '/{userId}':
+    description: Description inside get method (retrieves a single user)(added using code)
+    get:
+      description: Description inside get method (retrieves a single user)
+      displayName: getAUser
+      responses:
+        '200':
+          description: successful operation
+          body:
+            application/json:
+              type: User
+        '400':
+          description: Operation failed
+          body:
+            application/json:
+              type: ErrorResponse
+        '404':
+          description: API not found
+      queryParameters:
+        fields:
+          description: Filter fields
+          required: false
+          type: array
+          items:
+            type: string
+          (oas-collectionFormat): csv
+        sort:
+          description: Sorting details
+          required: false
+          type: array
+          items:
+            type: string
+          (oas-collectionFormat): multi
+        page:
+          description: Page number
+          minimum: 1
+          required: false
+          type: integer
+          format: int32
+        rows:
+          description: No of rows in a page
+          minimum: 1
+          required: false
+          type: integer
+          format: int64
+        format:
+          description: Response type
+          required: false
+          type: array
+          items:
+            type: string
+            enum:
+              - json
+              - csv
+              - tsv
+      (oas-summary): Summary inside get method (retrieves a single user)
+      (oas-tags):
+        - Tags inside get method
+    uriParameters:
+      userId:
+        description: ID of user to return
+        type: integer
+        format: int64
